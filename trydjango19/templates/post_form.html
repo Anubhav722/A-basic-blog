@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+        
+        {% block content %}
+        <div class="col-sm-8 col-sm-offset-2">
+        
+        <h1>Form</h1>    
+        
+        <!-- Creating a form here to store inputs from user--><!-- enctype added so as to take image as the input -->
+        <form method='POST' action='' enctype='multipart/form-data'><!-- REMEMBER CRUD- post request is used for creating..  -->
+        <!-- in action we specify what url we have to send it to-->
+        {% csrf_token %}<!-- needed for security purposes else other websites can also post on your page...without it it will give 403 Forbidden error. i.e verification failed-->
+        {{ form.as_p }}
+        
+    
+        <!-- Adding an input button -->
+        <input type="submit" class="btn-btn-default" value="Create Post" />
+        </form>
+        </div>
+        
+        
+        {% endblock %}
+    

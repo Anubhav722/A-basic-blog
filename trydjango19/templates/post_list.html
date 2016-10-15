@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+        
+        
+        {% block content %}
+        <h1>{{ title }}</h1>
+        <!-- template for search -->
+        <form method='GET' action="">
+            <input type="text" name="query" placeholder="Search Posts" value="{{ request.GET.query }}"/> <!-- we can give name="q" anything .. in the url it will display /posts/?query=<whatever you wanted to search> -->
+            <input type="submit" value="Search" />
+            
+        </form>
+        
+        <div class='col-sm-8 col-sm-offset-2'>
+        <h1>{{ title }}</h1>
+      <div class="row">
+        {% for obj in object_list %}
+
+        
+        
+        
+      <div class="row">
+<div class="col-sm-12"> <!-- "col-md-4"-->
+    <div class="thumbnail">
+        {% if obj.image %}
+        <img src='{{ obj.image.url }}' class='img-responsive' />
+        {% endif %}  
+      <!--<img src="..." alt="...">-->
+      <div class="caption">
+        {% if obj.draft %}
+            <h3>Staff Only: Draft </h3>{% if obj.publish > today %}<h3> Staff Only: Future Post {% endif %} </h3>
+        {% endif %}
+        <!--<h3><a href='{{ obj.get_absolute_url }}'>{{ obj.title }} <small>{{ obj.timestamp|timesince }} ago</small></h3>-->
+        <h3><a href='{{ obj.get_absolute_url }}'>{{ obj.title }} <small>{{ obj.publish|timesince }}</small></h3>
+        {% if obj.user.get_full_name %}
+        <p>Author: {{ obj.user.get_full_name }}</p>
+        {% endif %}
+        <p>{{ obj.content|linebreaks|truncatechars:30 }}</p>
+        <p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">View</a><!-- <a href="#" class="btn btn-default" role="button">Button</a>--></p>
+      </div>
+    </div>
+  </div>
+ </div>  
+       <!-- {% cycle "" "<div class='col-sm-12'></hr></div></div><div class='row'>" %}-->
+        {% endfor %}
+        <!-- copied from django documentation -->
+        <div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?page={{ object_list.previous_page_number }}{% if request.GET.query %}&q={{ request.GET.query }}{% endif %}">previous</a><!-- replaced queryset with object_list as in views.py the key of context dictionary is object_list-->
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?page={{ object_list.next_page_number }}{% if request.GET.query %}&q={{ request.GET.query }}{% endif %}">next</a>
+        {% endif %}
+    </span>
+</div>
+        
+        
+        
+        
+        </div>
+        {% endblock %}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+                    <!--<div class="col-sm-6">
+            <!-- {% url 'posts:detail' obj.id %}-->
+            <!--<a href="{% url 'posts:detail' obj.id %}">{{ obj.title }}</a></br>-->
+            <!--<a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></br>
+            {{ obj.content|linebreaks|truncatechars:30 }}</br>
+            {{ obj.updated }}</br>
+            {{ obj.timestamp }}</br>
+            {{ obj.id }}</br>
+            {{ obj.pk }}</br>

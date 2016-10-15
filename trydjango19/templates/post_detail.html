@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load urlify %}
+{% block title %}{{ instance.title }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+
+        
+        
+        
+        <div class="col-sm-8 col-sm-offset-2">
+        {% if instance.image %}
+        <img src='{{ instance.image.url }}' class='img-responsive' />
+        {% endif %}
+        <!--<h1>{{ title }}   <small>  {{ instance.timestamp|timesince }}</small></h1>-->
+        <h1>{{ title }}   <small>  {% if instance.draft %}<span style:'color:red;'>Draft</span>{% endif %}{{ instance.publish|timesince }}</small></h1>
+        <p>Author: {{ instance.user }}</p>
+        <!-- fb like button -->
+        <!--<p><div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-show-faces="true" data-share="true"></div></p>-->
+        <p><div class="fb-like" data-href="{{ request.bulid_absolute_uri }}" data-show-faces="true" data-share="true"></div></p>
+        
+        
+        {% if instance.user.get_full_name %}
+        <p>Author: {{ instance.user.get_full_name }}</p> <!-- will give the full name ...only if they have entered the full name -->
+        {% endif %}
+        {{ request.bulid_absolute_uri }} <!-- not working ..will replace http://CodingForEntrepreneurs.com in sharing links -->
+        {{ instance.content|truncatechars:20|urlify }} <br/>
+        
+        <!--{{ share_string }} view video 30 again -->
+         <a href="https://www.facebook.com/sharer/sharer.php?u=http://CodingForEntrepreneurs.com/">
+        Share on Facebook
+        </a>
+        
+        <!-- <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.bulid_absolute_uri }}"> -->
+        <a href="https://twitter.com/home?status={{ instance.content|truncatechars:80|urlify }}%20{{ request.bulid_absolute_uri }"><!-- not working -->
+        <a href="https://twitter.com/home?status=I'm%20going%20to%20learn%20to%20Code...%20Come%20build%20an%20web%20apsp%20with%20me!%20%23CFE%20and%20@justinmitchel%20http://codingforentrepreneurs.com/">
+        Share on Twitter
+        </a>
+        <!--<a href="https://twitter.com/home?status={{ instance.content|urlify }}%20{{ request.bulid_absolute_uri }">-->
+        <a href='https://plus.google.com/share?url=http://codingforentrepreneurs.com'>
+                
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://swiftforentrepreneurs.com/&title=Be%20first%20%7C%20Join%20Swift%20for%20Entrepreneurs&summary=Swift%20for%20Entrepreneurs%20is%20a%20project-based%20programming%20course%20for%20non-technical%20founders.%20We'll%20learn%20how%20to%20build%20iOS%20apps%20from%20scratch%20using%20Apple's%20new%20programming%20language:%20Swift.%20Be%20first%20and%20learn%20with%20me!&source=http://swiftforentrepreneurs.com/">
+        Share on Linkedin
+        </a>
+        
+        <a href="http://www.reddit.com/submit?url=http://swiftforentrepreneurs.com/&title=Unlock%20to%20Learn%20Swift%20for%20Free!%20By%20Swift%20for%20Entrepreneurs.%20Made%20for%20Non%20Techincals.">Share on Reddit</a>
+
+        <!--<div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-numposts="5"></div>-->
+        
+        <div class="fb-comments" data-href="{{ request.bulid_absolute_uri }}" data-numposts="5"></div>
+        
+        
+        {{ instance.content|linebreaks }}</br>
+       
+
+        </div>
+{% endblock %}
