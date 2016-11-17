@@ -34,7 +34,9 @@ class Post(models.Model):# title, image, content, updated, timestamp are all att
     
     content=models.TextField()
     updated=models.DateTimeField(auto_now=True, auto_now_add=False)
+    #auto_now=True # whenever it was last updated, it will change accordingly when it was last updated
     timestamp=models.DateTimeField(auto_now=False, auto_now_add=True)
+    #auto_now_add=True # whenever it was added into the database , it is set only one time
     
     objects=PostManager() # if we remove this statement ..it will show us the drafts and the posts published in the future
     # we can call objects anything(ex. views) ..it is just a variable but in views then we will have to change Post.objects.all -> Post.views.all
