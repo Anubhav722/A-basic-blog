@@ -80,8 +80,8 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):     #for receivin
     instance.slug=slug"""
     
         
-pre_save.connect(pre_save_post_receiver, sender=Post)
-
+pre_save.connect(pre_save_post_receiver, sender=Post) # here sender is Post and receiver is pre_save_post_receiver
+# the sender is always the model class
 
 
 # Each model is a Python class that subclasses django.db.models.Model.
