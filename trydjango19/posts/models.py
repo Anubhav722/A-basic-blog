@@ -14,11 +14,11 @@ class PostManager(models.Manager): #Model managers is essentially a way to contr
 
 
 
-
-def upload_location(instance, filename):
+# when using ImageField we will have to install pillow by -- pip install pillow
+def upload_location(instance, filename): # this upload_location will change how it is uploaded inside the mdeia_cdn
     #filebase, extension= filename.split(".")
     #return "%s/%s/%s" %(instance.id, filename, extension)# we will have the instance.id in the name of the file instead of the original image file..but not a good idea
-    return "%s/%s" %(instance.id, filename)
+    return "%s/%s" %(instance.id, filename) # if we had a user folder we cud have done-- instance.user
 
 class Post(models.Model):# title, image, content, updated, timestamp are all attributes of our class Post
     user=models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
@@ -26,7 +26,7 @@ class Post(models.Model):# title, image, content, updated, timestamp are all att
     slug=models.SlugField(unique=True)
     #image=models.FileField(null=True, blank=True) # blank=True , as a Post can also exist without an image # heightfield and widthfield don't exist in filefield that's why we have used imagefield here
     #image=models.ImageField(null=True, blank=True, width_field="width_field", height_field="height_field") # adding additional attributes to the image field
-    image=models.ImageField(upload_to=upload_location,null=True, blank=True, width_field="width_field", height_field="height_field")
+    image=models.ImageField(upload_to=upload_location,null=True, blank=True, width_field="width_field", height_field="height_field") # upload_to calls the function upload_location(created above)  ..we can also do this -- upload_to="images/"
     height_field=models.IntegerField(default=0) # gives the height of the image...chk the admin 
     width_field=models.IntegerField(default=0) # gives the width of the image.. chk the admin
     draft=models.BooleanField(default=False)
