@@ -6,8 +6,9 @@ from django.conf import settings
 from django.utils import timezone
 
 # Create your models here.
-
-class PostManager(models.Manager): #Model managers is essentially a way to control how the managers work
+# Post.objects.all() -- it's a type of model manager that works with the queryset
+# Post.objects.create() -- another type of model manager that creates an instance
+class PostManager(models.Manager): #Model managers is essentially a way to control how the models work
     def active(self, *args, **kwargs):
         #Post.objects.all()= super(PostManager, self).all() same thing
         return super(PostManager, self).filter(draft=False).filter(publish__lte=timezone.now())
